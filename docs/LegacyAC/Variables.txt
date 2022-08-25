@@ -1,0 +1,324 @@
+Player Information
+p_hp - Current HP
+p_hpp - Current HP %
+p_mp - Current MP
+p_mpp - Current MP %
+p_tp - Current TP
+p_hpmax - Max HP
+p_mpmax - Max MP
+p_fireresist - Fire Resistance
+p_earthresist - Earth Resistance
+p_waterresist - Water Resistance
+p_windresist - Wind Resistance
+p_iceresist - Ice Resistance
+p_lightningresist - Thunder Resistance
+p_lightresist - Light Resistance
+p_darkresist - Dark Resistance
+p_attack - Attack
+p_defense - Defense
+p_joblevel - Main Job's Level
+p_subjoblevel - Sub Job's Level
+p_mainjob - Main Job(brd, blu, etc)
+p_subjob - Sub Job(brd, blu, etc)
+p_job - Whole Job(mnk/war, whm/sch, etc)
+p_status - Current Status
+Possible Value: dead
+Possible Value: engaged
+Possible Value: idle
+Possible Value: resting
+Possible Value: unknown
+Possible Value: zoning
+p_name - Character Name
+p_ismoving - True if char has moved since last outgoing 0x15, false if not
+
+Environment Information
+e_area - Current Zone
+e_time - Current Vana Time(Expressed as a decimal, just replace : with ., ie: 23.50 is 11:50 PM)
+e_moon - Current Vana Moon Phase
+Possible Value: firstquarter
+Possible Value: fullmoon
+Possible Value: lastquarter
+Possible Value: newmoon
+Possible Value: unknown
+Possible Value: waningcrescent
+Possible Value: waninggibbous
+Possible Value: waxingcrescent
+Possible Value: waxinggibbous
+e_moonpct - Current Moon %
+e_day - Current Vana Day
+Possible Value: darksday
+Possible Value: earthsday
+Possible Value: firesday
+Possible Value: iceday
+Possible Value: lightningday
+Possible Value: lightsday
+Possible Value: unknown
+Possible Value: watersday
+Possible Value: windsday
+e_dayelement - Current Vana Day's Element
+Possible Value: dark
+Possible Value: earth
+Possible Value: fire
+Possible Value: ice
+Possible Value: light
+Possible Value: thunder
+Possible Value: unknown
+Possible Value: water
+Possible Value: wind
+e_weather - Current Vana Weather
+Possible Value: clear
+Possible Value: clouds
+Possible Value: dark
+Possible Value: darkx2
+Possible Value: earth
+Possible Value: earthx2
+Possible Value: fire
+Possible Value: firex2
+Possible Value: fog
+Possible Value: ice
+Possible Value: icex2
+Possible Value: light
+Possible Value: lightx2
+Possible Value: sunshine
+Possible Value: thunder
+Possible Value: thunderx2
+Possible Value: unknown
+Possible Value: water
+Possible Value: waterx2
+Possible Value: wind
+Possible Value: windx2
+e_weatherelement - Current Vana Weather's Element, if you have a storm spell active will return that element instead
+Possible Value: dark
+Possible Value: earth
+Possible Value: fire
+Possible Value: ice
+Possible Value: light
+Possible Value: No Target
+Possible Value: none
+Possible Value: thunder
+Possible Value: unknown
+Possible Value: water
+Possible Value: wind
+
+Target Information(All will return false if you have no target,
+this is the target you have selected ingame not the target of any spell/ability)
+t_distance - Target's Distance
+t_hpp - Target's HP %
+t_id - Target's ID
+t_index - Target's index
+t_name - Target's Name
+t_type - Target Type
+Possible Value: monster
+Possible Value: npc
+Possible Value: pc
+Possible Value: self
+Possible Value: unknown
+
+Alliance Information
+a_inally - Returns whether you're currently in an alliance.
+Possible Value: false
+Possible Value: true
+a_count - Returns amount of people in your alliance.
+a_actiontarget - Returns whether your action target is in alliance. *1
+Possible Value: false
+Possible Value: true
+a_target - Returns whether your target is in alliance. Will return false if no target.
+Possible Value: false
+Possible Value: true
+
+Party Information
+pt_inparty - Returns true if anyone else is in your party.
+Possible Value: false
+Possible Value: true
+pt_count - Returns amount of people in your immediate party.
+pt_actiontarget - Returns whether your action target is in party. *1
+Possible Value: false
+Possible Value: true
+pt_target - Returns whether your target is in party. Will return false if no target.
+Possible Value: false
+Possible Value: true
+
+Equipment Information - If nothing equipped, will return nothing.
+eq_main - Main slot item's name
+eq_sub - Sub slot item's name
+eq_range - Range slot item's name
+eq_ammo - Ammo slot item's name
+eq_head - Head slot item's name
+eq_neck - Neck slot item's name
+eq_ear1 - Left ear item's name
+eq_lear - Same as eq_ear1
+eq_ear2 - Right ear item's name
+eq_rear - Same as eq_ear2
+eq_body - Body item's name
+eq_hands - Hand item's name
+eq_ring1 - Left ring item's name
+eq_lring - Same as eq_ring1
+eq_ring2 - Right ring item's name
+eq_rring - Same as eq_ring2
+eq_back - Back item's name
+eq_waist - Waist item's name
+eq_legs - Leg item's name
+eq_feet - Feet item's name
+
+Action Target Information - This can only be used during processing of an action with a target.
+It will return false if you try to call it inside idlegear, as there's no action target set.
+at_distance - Distance to action target
+at_hpp - Action target's HP %
+at_id - Action target's ID
+at_index - Action target's index
+at_name - Action target's name
+at_type - ACtion target's type
+Possible Value: monster
+Possible Value: npc
+Possible Value: pc
+Possible Value: self
+Possible Value: unknown
+
+Action Data - This can only be used during processing of an action.
+JA/WS/Magic/Petskill/Petspell can use id and name.
+ad_id - Action's ID
+ad_name - Action's Name
+
+
+ad_type has different values depending on where it is used.
+ad_type - These are the possible values when used in <jobability>.
+Possible Value: bloodpactrage
+Possible Value: bloodpactward
+Possible Value: corsairroll
+Possible Value: jobability
+Possible Value: ready
+Possible Value: runeenchantment
+Possible Value: quickdraw
+Possible Value: waltz
+
+ad_type - These are the possible values when used in <premagic> <petspell> or <midmagic>.
+Possible Value: bardsong
+Possible Value: blackmagic
+Possible Value: bluemagic
+Possible Value: ninjutsu
+Possible Value: summoning
+Possible Value: unknown
+Possible Value: whitemagic
+
+ad_type - These are the possible values when used in <petskill>.
+Possible Value: bloodpactrage
+Possible Value: bloodpactward
+Possible Value: geows
+Possible Value: pupws
+Possible Value: ready
+Possible Value: unknown
+Possible Value: wyvern
+
+
+These can be used in <premagic> and <midmagic>.  All besides mpaftercast and mppaftercast may also be used in <petspell>.
+ad_recast - Spell's base recast(in seconds)
+ad_casttime - Spell's base casttime(in seconds)
+ad_mpcost - Spell's mp cost
+ad_mpaftercast - Your current MP - spell's mp cost, does not predict conserve mp/arts/etc
+ad_mppaftercast - Your expected mp% after casting, does not predict conserve mp/arts/max mp changes/etc
+ad_element - Spell's element
+Possible Value: dark
+Possible Value: earth
+Possible Value: fire
+Possible Value: ice
+Possible Value: light
+Possible Value: nonelemental
+Possible Value: thunder
+Possible Value: unknown
+Possible Value: water
+Possible Value: wind
+ad_skill - Spell's Skill
+Possible Value: bluemagic
+Possible Value: darkmagic
+Possible Value: divinemagic
+Possible Value: elementalmagic
+Possible Value: enhancingmagic
+Possible Value: enfeeblingmagic
+Possible Value: healingmagic
+Possible Value: ninjutsu
+Possible Value: singing
+Possible Value: summoning
+
+pet_active - Whether you have a pet out.
+Possible Value: true
+Possible Value: false
+pet_hpp - Pet's current HP %.
+pet_tp - Pet's current TP %.
+pet_status - Pet's current status.
+Possible Value: dead
+Possible Value: engaged
+Possible Value: idle
+Possible Value: resting
+Possible Value: unknown
+Possible Value: zoning
+pet_name - Pet's name.
+pet_distance - Distance to your pet.
+
+
+
+Pet rules will all return false if there is no active pet.
+*1 - These have the same restrictions as any at_ rule.
+
+buffactive - Check if buff is active.  Takes buff ID or name.  Can take 'x#' to represent multiple.
+buffactive="214" - true if at least 1 march is active
+buffactive="Marchx2" - true if at least 2 marches are active
+buffactive="!Marchx2" - true if less than 2 marches are active
+buffactive="214x2" - true if at least 2 marches are active
+buffactive="214x2|Embrava" - true if at least 2 marches are active OR embrava is active
+
+Rules that take numbers can be prefixed with > (greater than) or < (less than).
+This doesn't apply to buffactive, because it doesn't make sense to.
+<if p_mp="<500"> would trigger if the player's mp is below 500.
+All rules can be prefixed with a single ! for 'not equal to', including buffactive but not advanced.
+You may only use one prefix per | or & seperated section.
+
+Basic rules can be constructed using or pipes(|), and & connectors, and will be read from right to left.
+ie: <if p_mp=">500&<1000|<300"> will be sectioned into "|<300" "&<1000" and ">500".  If it's below 300, the entire statement will be read as true.
+If it is not below 1000, the statement will be read as false.  If it passes the <1000 check, the statement will be true if it is above 500.
+Basic rules are intended to be simplistic in nature, if you need compound logic see advanced rules later.
+
+Rules that take text can include wildcards(*).
+You can reference the value of a rule inside equipment names, set names, or ingame chat by prefixing it with a %.
+You can reference the value of a variable under the same conditions by prefixing it with a $.
+Variables and rules inside set names or equipment names are processed at the time of equip.
+
+Example: <main>$%ad_elementStaff</main>
+will be evaluated to $FireStaff if the active spell is fire element
+if the variable FireStaff is set, it'll be replaced with the value of that
+If this were triggered during idlegear, it would remain $%ad_elementStaff because action data is not available.
+
+Advanced Rules
+<if advanced="%p_hp>$HPThreshhold"> - true if p_hp's value is higher than the user-defined variable HPThreshhold
+You can use the following comparers:
+= Equal To
+!= Not Equal To
+>= Greater Than Or Equal To
+> Greater Than
+<= Less Than Or Equal To
+< Less Than
+| OR (one side evaluates to >zero or true)
+& AND (both sides evaluate to >zero or true)
++ Addition
+- Subtraction
+** Multiplication(must use 2 stars, one could be confused with a wildcard)
+/ Division
+
+You must seperate all rules by either a comparer or parentheses(), brackets[], or braces{}.
+
+<if advanced="(%p_hp>$HPThreshhold)|($ForceThreshhold=false)">
+Above is true if p_hp is greater than hpthreshhold or forcethreshhold is false
+<if advanced="{(%p_hp>$HPThreshhold)|($ForceThreshhold=false)}&(%p_mp>100)">
+The above is true if mp is above 100 and either p_hp is greater than hpthreshhold or forcethreshhold is false
+
+All elements are compared as case insensitive strings unless the comparer requires a number.
+You can freely add anything adjacent to variables and rules.
+
+<if advanced="d%p_hp=d1200"> would return true if hp was equal to 1200.
+<if advanced="d%p_hpp=d80"> would return true if hpp was equal to 80
+As illustrated in the above case, the longest existing match is always used after a % or $.
+
+You cannot leave rules ambiguous, parentheses must seperate all operators.
+"%p_hp>500" is fine
+"%p_hp<500&%p_mp>200" is not
+"(%p_hp<500)&(%p_mp>200)" is the correct way to do it, after evaluating each parentheses' statement from inside to outside,
+you should end with one comparer and 2 values

@@ -1,0 +1,154 @@
+<ashitacast>
+	
+	<!-- Rule checks, equipment, and set names ARE NOT case sensitive.
+	XML tag names and attribute names ARE case sensitive.
+	In simpler terms, you can do <if p_status="idle"> or <if p_status="IDLe">
+	but you can't use <If> or <if P_status>.-->
+	
+	<settings> <!--Contains settings specific to this xml, must be set to true/false to override default-->
+        <predictivepet>true</predictivepet> <!--If enabled, will automatically trigger petskill when using an ability that correlates to a pet skill such as a blood pact or ready move.-->
+		<buffupdate>true</buffupdate> <!--Determines if your idlegear will be parsed when you gain/lose a buff. Default: TRUE -->
+		<statusupdate>true</statuspdate> <!--Determines if your idlegear will be parsed when you change status(stand/rest/engage/etc).  Default: TRUE -->
+		<hpupdate>true</hpupdate> <!--Determines if your idlegear will be parsed when your HP % changes.  Default: TRUE -->
+		<autoupdate>true</autoupdate> <!--Determines if your idlegear will be parsed on outgoing status updates(roughly every 350ms).  Default: TRUE -->
+	</settings>
+	
+	<sets> <!-- Contains all of your sets.-->
+		<set name="Stand" baseset="Idle" lock="true" priority="99"> <!--Set Entry, baseset is optional and will copy that set
+		then change anything specified.  Lock will not allow that slot to be overwritten, except by another lock.
+		Priority changes the order in which a piece of equipment will be put on, default is 0 but can go from -100 to +100, higher is equipped first-->
+			<main priority="1" lock="true">Burtgang</main> <!--Equip tags make up the set, priority and lock can be done on a per slot basis-->
+			<sub>Ochain</sub>
+			<range>none</range>
+			<ammo>Angha Gem</ammo>
+			<head>Laeradr Helm</head>
+			<neck>Twilight Torque</neck>
+			<lear>Merman's Earring</lear> <!--Ear1, Ear2, Ring1, Ring2 also work-->
+			<rear>Merman's Earring</rear>
+			<body>Mekira Meikogai</body>
+			<hands>Cizin Mufflers</hands>
+			<lring>Shadow Ring</lring>
+			<rring>Defending Ring</rring>
+			<back>Repulse Mantle</back>
+			<waist>Nierenschutz</waist>
+			<legs>Blood Cuisses</legs>
+			<feet>Phorcys Schuhs</feet>
+		</set>
+		<include> <!--This is used by DressMe, if you use the same files.-->
+			<item>Aegis</item> <!--Quantity is assumed to be 1 if unspecified.-->
+			<item quantity="12">Echo Drops</item>
+			<item quantity="all">Tavnazian Taco</item> <!--You can specify all for the gear function to retrieve all of an item.-->
+			<event name="Voidwatch">
+				<item>Adamas</item> <!--Any entries inside a voidwatch tag will be collected if gear was initiated with that
+				as an argument.  For example, in this case, Adamas would be retrieved if you'd originally typed '/ac gear voidwatch'
+				or '/dm gear "XML Structure.xml" voidwatch'-->
+			</event>
+		</include>
+	</sets>
+		
+	<init> <!--Used for startup commands, parsed once when XML is loaded.. use for keybinds, macro book changes, variable setup, whatever-->
+		<!--Equip tags will not do anything here.  Rules and all other tags will.-->
+		<command>/macro book 1</command>
+		<command delay="1000">/macro set 1</command> <!--I recommend a delay when using macro book and set changes, seems the client doesn't always like both changed at once?-->
+	</init>
+		
+	<variables> <!--You can reference variables that aren't defined here, this is just for initializing-->
+		<var name="Shield">Ochain</var> <!--All variables are stored as strings, and turned into numbers if used in a numerical comparison-->
+	</variables>
+
+	<inputcommands> <!--This allows you to set up commands to do specific things.  Whenever the typed command is input, it's section is parsed.-->
+		<cmd input="/Trigger1"> <!--Reads through this node when the command is input. -->
+			<!--If, Elseif, and Else statements can be used to control flow.  If the statement evaluates true, everything inside it will be read.-->
+			<if e_area="Eastern Adoulin"> <!--If statements can contain any amount of attributes from the variables.txt file.-->
+			</if>
+			<elseif> <!--Elseif must always be placed after an if and can use the same type of rules.-->
+			</elseif>
+			<else> <!--Else must follow an if or elseif.  No attributes.-->
+			</else>
+			
+			<command delay="1500">/ma "Flash" &lt;t&gt;</command> <!--Pass a command to the game client.  Use &lt; and &gt; to avoid creating an XML node.-->
+			<!--delay is optional, if specified will wait that many milliseconds to send the command.-->
+			<clearvars /> <!--Clear all user-defined variables.-->
+			<setvar name="Shield" value="Aegis" /> <!--Set a variable to a specific value.-->
+			<incvar name="Count" value="3" /> <!--Increase a variable, if value isn't specified will use 1.-->
+			<decvar name="Count" value="3" /> <!--Decrease a variable. if value isn't specified will use 1.-->
+			<change id="333" /> <!--Change the ID of an outgoing spell/ability/etc(ie: downgrade a cure if your rules
+			determine that it's not needed.  Doesn't work in input commands, obviously.-->
+			<addtochat color="35">Printing Text</addtochat> <!--Print text to chat log.  If color isn't specified, will use white.-->
+			<gearlock length="5" /> <!--Stop all gear changes for length seconds, not optional.-->
+			<cancel /> <!--Stop the spell in process from occuring-->
+			<return /> <!--Stop reading flow, any gearswaps currently pending will still be applied and the ability will go through if cancel wasn't called.-->
+			<doidlegear /> <!--Process idle gear section-->
+			<registerbuff id="409" active="false" /> <!--This adds a buff to an internal registry for 3 seconds.  It will take priority over status
+			effects on your character.  This is useful for Sneak Attack->WS or Perpetuance->Spell or anything else where your buff icon
+			wouldn't have loaded.  Put it in the perpetuance precast event, and it'll be registered when you hit your spell.  If active isn't
+			specified, it's assumed to be true.  status="false" forces the game to think your buff isn't active even if it is -->
+			<clearbuff id="409" /> <!--This removes the buff ID from the registry, allowing the game to use it's actual buffs again before
+			the 3 second wait has passed.-->
+			
+			<equip lock="true" set="setname" priority="15"> <!--All tags are optional.
+			All equips are parsed and then when the section ends, the last setting for each slot is equipped.-->
+				<main lock="true" priority="-1">Burtgang</main> <!--Single slot equip tags can be used inside an equip node, you can also specify lock and priority on a per slot basis.-->
+				<!--If a set was specified, these will overwrite it.-->
+				<sub>Ochain</sub>
+				<range>none</range>
+				<ammo>Angha Gem</ammo>
+				<head>Laeradr Helm</head>
+				<neck>Twilight Torque</neck>
+				<lear>Merman's Earring</lear> <!--Ear1, Ear2, Ring1, Ring2 also work-->
+				<rear>Merman's Earring</rear>
+				<body>Mekira Meikogai</body>
+				<hands>Cizin Mufflers</hands>
+				<lring>Shadow Ring</lring>
+				<rring>Defending Ring</rring>
+				<back>Repulse Mantle</back>
+				<waist>Nierenschutz</waist>
+				<legs>Blood Cuisses</legs>
+				<feet>Phorcys Schuhs</feet>
+			</equip>
+		</cmd>
+	</inputcommands>
+
+	<idlegear>
+		<!--Same subnodes as command triggers, is processed whenever an action ends, your status changes, and once every 3 seconds if no actions done.-->
+	</idlegear>
+
+	<preranged>
+		<!--Same subnodes as command triggers, is processed when a shot starts.  Equip tags will be on when the shot starts.-->
+	</preranged>
+		
+	<midranged>
+		<!--Same subnodes as command triggers, is processed before shot ends.  Equip tags will be on when the shot finishes.-->
+	</midranged>
+
+	<premagic>
+		<!--Same subnodes as command triggers, is processed when a spell starts.  Equip tags will be on when the spell starts.-->
+	</premagic>
+		
+	<midmagic>
+		<!--Same subnodes as command triggers, is processed before a spell ends.  Equip tags will be on when the spell finishes.-->
+	</midmagic>
+
+	<jobability>
+		<!--Same subnodes as command triggers, processed when you use a JA.  Equip tags will be on when the JA processes.-->
+	</jobability>
+
+	<weaponskill>
+		<!--Same subnodes as command triggers, processed when you use a WS.  Equip tags will be on when the WS processes.-->
+	</weaponskill>
+	
+	<petskill>
+		<!--Most of same nodes as command triggers, processed when your pet uses a weaponskill.  Equip tags will be on when pet WS damage is calculated.
+		A cancel tag indicates that idlegear should be used as normal(no swap for this pet ws).  If this section doesn't exist, idlegear will be used for petws.
+		<change> and <doidlegear> do NOT work here.-->
+	</petskill>
+	
+	<petspell>
+		<!--Most of same nodes as command triggers, processed when your pet casts a spell.  Equip tags will be on when pet spell damage is calculated.
+		A cancel tag indicates that idlegear should be used as normal(no swap for this pet spell).  If this section doesn't exist, idlegear will be used for pet spell.
+		<change> and <doidlegear> do NOT work here.-->
+	</petsspell>
+
+	<!--Each of the base nodes is optional, if you don't need it then you don't need to add it.-->
+
+</ashitacast>
