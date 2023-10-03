@@ -6,6 +6,7 @@
 	but you can't use <If> or <if P_status>.-->
 	
 	<settings> <!--Contains settings specific to this xml, must be set to true/false to override default-->
+        <blockresends>false</blockresends> <!--If enabled, will stop action packets being sent multiple times.  This is useful if you are playing at a high enough latency that the game always attempts to resend actions.-->
         <predictivepet>true</predictivepet> <!--If enabled, will automatically trigger petskill when using an ability that correlates to a pet skill such as a blood pact or ready move.-->
 		<buffupdate>true</buffupdate> <!--Determines if your idlegear will be parsed when you gain/lose a buff. Default: TRUE -->
 		<statusupdate>true</statuspdate> <!--Determines if your idlegear will be parsed when you change status(stand/rest/engage/etc).  Default: TRUE -->
